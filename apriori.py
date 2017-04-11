@@ -53,6 +53,7 @@ def getItemSetTransactionList(data_iterator):
         transactionList.append(transaction)
         for item in transaction:
             itemSet.add(frozenset([item]))              # Generate 1-itemSets
+    print itemSet
     return itemSet, transactionList
 
 
@@ -115,13 +116,13 @@ def runApriori(data_iter, minSupport, minConfidence):
 
 def printResults(items, rules):
     """prints the generated itemsets sorted by support and the confidence rules sorted by confidence"""
-    #for item, support in sorted(items, key=lambda (item, support): support):
-        #print ("item: %s , %.3f" % (str(item), support))
+    for item, support in sorted(items, key=lambda (item, support): support):
+        print ("item: %s , %.3f" % (str(item), support))
     print ("\n------------------------ RULES:")
     for rule, confidence in sorted(rules, key=lambda (rule, confidence): confidence):
         pre, post = rule
         print ("Rule: %s ==> %s , %.3f" % (str(pre), str(post), confidence))
-        rec.recommend(pre,post,confidence)
+        #rec.recommend(pre,post,confidence)
 
 
 def dataFromFile(fname):
@@ -168,3 +169,11 @@ if __name__ == "__main__":
     items, rules = runApriori(inFile, minSupport, minConfidence)
 
     printResults(items, rules)
+    getRule=raw_input('Enter grocery which u are likely to buy')
+    for rule, confidence in sorted(rules, key=lambda (rule, confidence): confidence):
+        pre, post = rule
+        if getRule in pre:
+            print ("You are likely to buy %s when you buy %s with confidence %.3f" % (str(post),str(pre), confidence))
+    #print rules
+
+
