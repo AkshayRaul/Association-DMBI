@@ -1,4 +1,6 @@
 """
+FORKED FROM https://github.com/asaini/Apriori , thanks :)
+
 Description     : Simple Python implementation of the Apriori Algorithm
 
 Usage:
